@@ -1,6 +1,6 @@
 import React from "react";
 
-const RemoveBackground = () => {
+const RemoveObject = () => {
   return (
     <div>
       <h1>Remove Background</h1>
@@ -8,4 +8,4 @@ const RemoveBackground = () => {
   );
 }
 
-export default RemoveBackground;
+export default RemoveObject;
