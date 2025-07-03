@@ -6,10 +6,10 @@
 }
 
 @theme{
-  --primary-color: #36419d;
-  --accent-color: #1f1868
-  --highlight-color: #e8c308;
-  --headline-color: #fbfbfd;
-  --highlight-text-color: #24bbed;
-  --select-color;#0a0706
+  --color-primary: #36419d;
+  --color-accent: #1f1868;
+  --color-highlight: #e8c308;
+  --color-headline: #fbfbfd;
+  --color-highlight-text: #24bbed;
+  --color-select: #0a0706;
 }
