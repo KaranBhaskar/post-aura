@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playfair+Display:wght@400;700&display=swap');
 @import "tailwindcss";
 
 *{
@@ -7,9 +8,16 @@
 
 @theme{
   --color-primary: #36419d;
-  --color-accent: #1f1868;
-  --color-highlight: #e8c308;
-  --color-headline: #fbfbfd;
-  --color-highlight-text: #24bbed;
-  --color-select: #0a0706;
+  --color-db: #1f1868;
+  --color-yellow: #e8c308;
+  --color-white: #fbfbfd;
+  --color-sb: #24bbed;
+  --color-bl: #0a0706;
+  --font-headline: 'Playfair Display', serif;
+}
+
+@layer base {
+  body {
+    @apply bg-primary; /* or whatever your default blue is */
+  }
 }
