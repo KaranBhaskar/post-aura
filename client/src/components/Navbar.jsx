@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <nav className="fixed z-5 w-full backdrop-blur-2xl flex justify-between items-center 
     px-4 py-4 sm:px-20 xl:px-32 text-xl">
-      <h1 className="text-yellow font-headline hover:underline">
+      <h1 className="text-yellow font-headline hover:underline text-4xl">
         <Link className="w-32 sm:w-44" to="/">Aura</Link>
         </h1>
         
@@ -20,7 +20,7 @@ const Navbar = () => {
         <UserButton/>
         </div>:
         <button onClick={openSignIn} className="flex items-center gap-2 rounded-full text-sm
-        cursor-pointer bg-yellow px-10 py-2.5 hover:bg-yellow-500">Get Started<ArrowRight className="w-4 h-4"/></button>
+        cursor-pointer bg-yellow px-10 py-2.5 hover:bg-yellow-500 ">Get Started<ArrowRight className="w-4 h-4"/></button>
         
         }
 
