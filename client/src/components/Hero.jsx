@@ -14,7 +14,7 @@ const Hero = () => {
 
   <div className="flex-col justify-between z-10  w-3/4">
     <div className="text-sb font-light text-2xl py-5 px-20"> <span>50+ Viral Templates <br/> and 24/7 Support</span></div>
-    <h1 className="text-4xl font-bold text-white tracking-wide
+    <h1 className="text-4xl text-white tracking-wide
      font-light underline leading-10 decoration-bl decoration-5 underline-offset-8">Don't just post, perform. leverage AI to craft stories that captivate your industry, and open doors to new opportunities. 
     </h1>
     <div className="text-yellow py-10 text-xl opacity-70 px-20">Transform your content creation with our suite of premium AI tools. Write articles, generate images, and enhance your workflow.</div>
