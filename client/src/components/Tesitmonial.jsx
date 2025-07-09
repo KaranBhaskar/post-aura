@@ -3,7 +3,7 @@ import { karanData } from "../assets/assets";
 
 const Testimonial = () => {
   return (
-    <div className="max-w-lg w-full mx-auto px-4 sm:px-6 bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+    <div className="my-20 max-w-lg w-full mx-auto px-4 sm:px-6 bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-xl hover:scale-105 hover:-translate-y-2 transition-all duration-300 cursor-pointer">
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center space-x-3">
@@ -11,7 +11,7 @@ const Testimonial = () => {
             href="https://www.linkedin.com/in/karanbhaskarr/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-shrink-0"
+            className="shrink-0"
           >
             <img
               src={karanData[0].image}
@@ -45,7 +45,7 @@ const Testimonial = () => {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn"
-          className="flex-shrink-0 text-blue-400 hover:text-blue-600 transition-colors"
+          className="shrink-0 text-blue-400 hover:text-blue-600 transition-colors"
         >
           <svg
             className="w-5 h-5"
