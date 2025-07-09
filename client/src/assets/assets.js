@@ -10,9 +10,7 @@ import {
   Scissors,
   FileText,
 } from "lucide-react";
-import ai_gen_img_1 from "./ai_gen_img_1.png";
-import ai_gen_img_2 from "./ai_gen_img_2.png";
-import ai_gen_img_3 from "./ai_gen_img_3.png";
+import karanpic from "./karanpic.png";
 
 export const assets = {
   star_icon,
@@ -72,29 +70,13 @@ export const AiToolsData = [
   },
 ];
 
-export const dummyTestimonialData = [
+export const karanData = [
   {
-    image: assets.profile_img_1,
-    name: "John Doe",
-    title: "Marketing Director, TechCorp",
+    image: karanpic,
+    name: "Karan Bhaskar",
+    title: "Your next Intern",
     content:
       "ContentAI has revolutionized our content workflow. The quality of the articles is outstanding, and it saves us hours of work every week.",
-    rating: 4,
-  },
-  {
-    image: assets.profile_img_1,
-    name: "Jane Smith",
-    title: "Content Creator, TechCorp",
-    content:
-      "ContentAI has made our content creation process effortless. The AI tools have helped us produce high-quality content faster than ever before.",
-    rating: 5,
-  },
-  {
-    image: assets.profile_img_1,
-    name: "David Lee",
-    title: "Content Writer, TechCorp",
-    content:
-      "ContentAI has transformed our content creation process. The AI tools have helped us produce high-quality content faster than ever before.",
     rating: 4,
   },
 ];
@@ -140,48 +122,48 @@ export const dummyCreationData = [
   },
 ];
 
-export const dummyPublishedCreationData = [
-  {
-    id: 1,
-    user_id: "user_2yMX02PRbyMtQK6PebpjnxvRNIA",
-    prompt:
-      "Generate an image of A Boy is on Boat , and fishing in the style Anime style.",
-    content: ai_gen_img_1,
-    type: "image",
-    publish: true,
-    likes: [
-      "user_2yMX02PRbyMtQK6PebpjnxvRNIA",
-      "user_2yaW5EHzeDfQbXdAJWYFnZo2bje",
-    ],
-    created_at: "2025-06-19T09:02:25.035Z",
-    updated_at: "2025-06-19T09:58:37.552Z",
-  },
-  {
-    id: 2,
-    user_id: "user_2yMX02PRbyMtQK6PebpjnxvRNIA",
-    prompt:
-      "Generate an image of A Boy Riding a bicycle on road and bicycle is from year 2201  in the style Anime style.",
-    content: ai_gen_img_2,
-    type: "image",
-    publish: true,
-    likes: [
-      "user_2yMX02PRbyMtQK6PebpjnxvRNIA",
-      "user_2yaW5EHzeDfQbXdAJWYFnZo2bje",
-    ],
-    created_at: "2025-06-19T08:16:54.614Z",
-    updated_at: "2025-06-19T09:58:40.072Z",
-  },
-  {
-    id: 3,
-    user_id: "user_2yaW5EHzeDfQbXdAJWYFnZo2bje",
-    prompt:
-      "Generate an image of a boy riding a car on sky in the style Realistic.",
-    content: ai_gen_img_3,
-    type: "image",
-    publish: true,
-    likes: ["user_2yaW5EHzeDfQbXdAJWYFnZo2bje"],
-    created_at: "2025-06-23T11:29:23.351Z",
-    updated_at: "2025-06-23T11:29:44.434Z",
-    __v: 1,
-  },
-];
+// export const dummyPublishedCreationData = [
+//   {
+//     id: 1,
+//     user_id: "user_2yMX02PRbyMtQK6PebpjnxvRNIA",
+//     prompt:
+//       "Generate an image of A Boy is on Boat , and fishing in the style Anime style.",
+//     content: ai_gen_img_1,
+//     type: "image",
+//     publish: true,
+//     likes: [
+//       "user_2yMX02PRbyMtQK6PebpjnxvRNIA",
+//       "user_2yaW5EHzeDfQbXdAJWYFnZo2bje",
+//     ],
+//     created_at: "2025-06-19T09:02:25.035Z",
+//     updated_at: "2025-06-19T09:58:37.552Z",
+//   },
+//   {
+//     id: 2,
+//     user_id: "user_2yMX02PRbyMtQK6PebpjnxvRNIA",
+//     prompt:
+//       "Generate an image of A Boy Riding a bicycle on road and bicycle is from year 2201  in the style Anime style.",
+//     content: ai_gen_img_2,
+//     type: "image",
+//     publish: true,
+//     likes: [
+//       "user_2yMX02PRbyMtQK6PebpjnxvRNIA",
+//       "user_2yaW5EHzeDfQbXdAJWYFnZo2bje",
+//     ],
+//     created_at: "2025-06-19T08:16:54.614Z",
+//     updated_at: "2025-06-19T09:58:40.072Z",
+//   },
+//   {
+//     id: 3,
+//     user_id: "user_2yaW5EHzeDfQbXdAJWYFnZo2bje",
+//     prompt:
+//       "Generate an image of a boy riding a car on sky in the style Realistic.",
+//     content: ai_gen_img_3,
+//     type: "image",
+//     publish: true,
+//     likes: ["user_2yaW5EHzeDfQbXdAJWYFnZo2bje"],
+//     created_at: "2025-06-23T11:29:23.351Z",
+//     updated_at: "2025-06-23T11:29:44.434Z",
+//     __v: 1,
+//   },
+// ];
