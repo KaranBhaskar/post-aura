@@ -33,7 +33,11 @@ const AiTools = () => {
               rounded-2xl flex flex-col items-center
                justify-center p-5 cursor-pointer aspect-5/6 max-w-xs
               shadow-lg shadow-slate-900/50"
-              onClick={() => (user ? navigate(tool.path) : openSignIn())}
+              onClick={() =>
+                user
+                  ? navigate(tool.path)
+                  : openSignIn({ fallbackRedirectUrl: tool.path })
+              }
             >
               <tool.Icon className="w-20 h-20 mb-4 text-yellow" />
               <h3 className="text-white text-2xl font-semibold mb-2">

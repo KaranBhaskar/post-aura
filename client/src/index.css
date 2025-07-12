@@ -12,13 +12,14 @@
   --color-yellow: #e8c308;
   --color-white: #fbfbfd;
   --color-sb: #24bbed;
+  --color-bsb: #e4eaf1;
   --color-bl: #0a0706;
   --font-headline: 'Playfair Display', serif;
 }
 
 @layer base {
   body {
-    @apply bg-primary; /* or whatever your default blue is */
+    @apply m-0 p-0 bg-white;
   }
   #root {
     @apply min-h-screen flex;

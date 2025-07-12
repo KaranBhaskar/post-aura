@@ -8,14 +8,14 @@ import Footer from "../components/Footer";
 
 const Home = () => {
   return (
-    <>
+    <div className="min-h-screen flex flex-col justify-between bg-primary w-screen">
       <Navbar />
       <Hero />
       <AiTools />
       <Testimonial />
       <Plan />
       <Footer />
-    </>
+    </div>
   );
 };
 
