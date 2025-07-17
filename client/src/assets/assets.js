@@ -89,7 +89,7 @@ export const dummyCreationData = [
       "Generate a blog title for the keyword blog in the category Technology.",
     content:
       "Here are a few blog title options for a technology blog, playing with different angles:\n\n**General & Broad:**\n\n*   The Tech Blog: News, Reviews, and Insights\n*   Technology Today: Your Daily Dose of Tech\n*   The Future is Now: Exploring the World of Technology\n*   Tech Talk: Unpacking the Latest Innovations\n\n**More Specific & Intriguing:**\n\n*   Decoding Tech: Making Sense of the Digital World\n*   Beyond the Gadgets: The",
-    type: "blog-title",
+    type: "title",
     publish: false,
     likes: [],
     created_at: "2025-07-01T11:09:50.492Z",
@@ -102,7 +102,7 @@ export const dummyCreationData = [
       "Generate a blog title for the keyword blog in the category General.",
     content:
       "Here are a few blog title options for a blog about blogs in the General category, ranging from straightforward to a bit more creative:\n\n**Straightforward:**\n\n*   The Blog Blog: Everything You Need to Know About Blogging\n*   Blogging Insights: Tips, Tricks, and Trends\n*   Your Guide to the World of Blogging\n\n**More Creative:**\n\n*   Beyond the Post: Exploring the Art of Blogging\n*   Blogosphere Unlocked: Navigating the World of Online Writing",
-    type: "blog-title",
+    type: "title",
     publish: false,
     likes: [],
     created_at: "2025-07-01T11:08:10.450Z",

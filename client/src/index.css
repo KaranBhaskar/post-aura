@@ -25,3 +25,11 @@
     @apply min-h-screen flex;
   }
 }
+
+.revert-tw, .revert-tw * {
+  all: revert !important;
+}
+
+.cl-drawerRoot{
+  z-index: 50;
+}
