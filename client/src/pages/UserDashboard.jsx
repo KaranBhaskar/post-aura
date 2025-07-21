@@ -49,7 +49,7 @@ const UserDashboard = () => {
           Recent Creations
         </p>
         {creations.map((creation) => (
-          <CreationItem key={creation.id} creation={creation} />
+      <CreationItem key={creation.id} creation={creation} />
         ))}
       </div>
     </div>
