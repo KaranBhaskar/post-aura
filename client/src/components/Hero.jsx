@@ -12,8 +12,8 @@ const Hero = () => {
         AURO
       </span>
 
-      <div className="flex-col justify-between z-10  w-3/4">
-        <div className="text-sb font-light text-2xl py-5 px-20">
+      <div className="flex-col justify-between z-10  w-3/4 max-sm:pt-[250px]">
+        <div className="text-sb font-light text-2xl py-5 px-20 max-sm:text-xl">
           {" "}
           <span>
             50+ Viral Templates <br /> and 24/7 Support
@@ -21,12 +21,12 @@ const Hero = () => {
         </div>
         <h1
           className="text-4xl text-white tracking-wide
-     font-light underline leading-10 decoration-bl decoration-5 underline-offset-8"
+     font-light underline leading-10 decoration-bl decoration-5 underline-offset-8 max-sm:text-3xl"
         >
           Don't just post, perform. leverage AI to craft stories that captivate
           your industry, and open doors to new opportunities.
         </h1>
-        <div className="text-yellow py-10 text-xl opacity-70 px-20">
+        <div className="text-yellow py-10 text-xl opacity-70 px-20 max-sm:text-lg">
           Transform your content creation with our suite of premium AI tools.
           Write articles, generate images, and enhance your workflow.
         </div>
