@@ -1,5 +1,5 @@
 import { db } from "../db/connect.js";
-import { Tables } from "../db/schema.ts";
+import { Tables } from "../db/schema.js";
 import { GoogleGenAI } from "@google/genai";
 import { clerkClient } from "@clerk/express";
 import "dotenv/config";

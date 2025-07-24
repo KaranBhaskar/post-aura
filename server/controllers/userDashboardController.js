@@ -1,5 +1,5 @@
 import { db } from "../db/connect.js";
-import { Tables } from "../db/schema.ts";
+import { Tables } from "../db/schema.js";
 import { eq, desc } from "drizzle-orm";
 import { getCloudinaryUrl } from "../utils/getImage.js";
 

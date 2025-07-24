@@ -1,7 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 import { db } from "../db/connect.js";
 import { clerkClient } from "@clerk/express";
-import { Tables } from "../db/schema.ts";
+import { Tables } from "../db/schema.js";
 import "dotenv/config";
 // The client gets the API key from the environment variable `GEMINI_API_KEY`.
 const ai = new GoogleGenAI({});

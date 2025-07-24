@@ -1,5 +1,5 @@
 import { db } from "../db/connect.js";
-import { Tables } from "../db/schema.ts";
+import { Tables } from "../db/schema.js";
 import { GoogleGenAI } from "@google/genai";
 import { clerkClient } from "@clerk/express";
 import "dotenv/config";
@@ -15,7 +15,8 @@ export const generateTitle = async (req, res) => {
       free_usage >= parseInt(process.env.FREE_USER_QUOTA)
     ) {
       return res.status(403).json({
-        message: "You've used all the free usage quota. Please upgrade your plan.",
+        message:
+          "You've used all the free usage quota. Please upgrade your plan.",
       });
     }
 

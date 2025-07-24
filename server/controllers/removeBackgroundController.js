@@ -1,6 +1,6 @@
 import { db } from "../db/connect.js";
 import { clerkClient } from "@clerk/express";
-import { Tables } from "../db/schema.ts";
+import { Tables } from "../db/schema.js";
 import { GoogleGenAI } from "@google/genai";
 import { uploadBufferImage } from "../utils/uploadImage.js";
 import "dotenv/config";
