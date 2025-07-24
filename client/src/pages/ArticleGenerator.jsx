@@ -34,10 +34,9 @@ const ArticleGenerator = () => {
           <select
             name="article_length"
             className="w-full border border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            defaultValue="short"
           >
-            <option selected value="short">
-              Short (300-500 words)
-            </option>
+            <option value="short">Short (300-500 words)</option>
             <option value="medium">Medium (500-1000 words)</option>
             <option value="long">Long (1000+ words)</option>
           </select>

@@ -41,7 +41,7 @@ const RemoveObject = () => {
             required
             placeholder="E.g., Remove the person on the left side of the image"
             rows={4}
-            className="border border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="border resize-none border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
           ></textarea>
           <p className="text-gray-500 text-sm">
             Be as specific as possible for best results.

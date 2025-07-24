@@ -40,7 +40,7 @@ const ResumeHelper = () => {
             required
             placeholder="E.g., Improve wording for my work experience section"
             rows={4}
-            className="border border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="border resize-none border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
           ></textarea>
           <p className="text-gray-500 text-sm">
             Be as specific as possible for best results.
@@ -55,7 +55,7 @@ const ResumeHelper = () => {
         </button>
       </form>
 
-    {/* right side  */}
+      {/* right side  */}
       <div className="flex-1 flex-cols max-h-[600px] bg-white p-6 rounded-lg shadow-md shadow-primary/10 min-w-0">
         {/* Processed resumes will be displayed here */}
         <div className="flex items-center gap-2 mb-4">
@@ -68,7 +68,9 @@ const ResumeHelper = () => {
         <div className="flex justify-center items-center h-full">
           <div className="text-sm flex flex-col items-center text-center gap-5 text-gray-400">
             <Pencil className="w-9 h-9" />
-            <p>Upload your resume and describe the help you need to get started.</p>
+            <p>
+              Upload your resume and describe the help you need to get started.
+            </p>
           </div>
         </div>
       </div>

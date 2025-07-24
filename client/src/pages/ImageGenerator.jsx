@@ -1,5 +1,6 @@
 import React from "react";
 import { Camera, Image } from "lucide-react";
+import ToggleSwitch from "../components/ToggleSwitch";
 
 const style = [
   "Realistic",
@@ -18,8 +19,9 @@ const ImageGenerator = () => {
     e.preventDefault();
     // Handle form submission logic here
   };
+  const [share, setShare] = React.useState(false);
   return (
-    <div className="flex h-full p-6 gap-6">
+    <div className="flex h-full p-6 gap-6 lg:flex-row flex-col w-full">
       {/* Left Side - Image Generator */}
       <form
         onSubmit={handleSubmit}
@@ -36,8 +38,8 @@ const ImageGenerator = () => {
           name="image_prompt"
           required
           placeholder="Describe the image you want to generate"
-          rows={8}
-          className="border border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          rows={4}
+          className="border resize-none border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
         ></textarea>
         <p className=" text-l font-semibold tracking-wide text-slate-700">
           Style
@@ -58,6 +60,10 @@ const ImageGenerator = () => {
               {styleOption}
             </span>
           ))}
+        </div>
+        <div className="flex gap-4 mt-4 items-center">
+          <ToggleSwitch isOn={share} handleToggle={() => setShare(!share)} />
+          <p className="text-sm">Make this image Public</p>
         </div>
         <button
           type="submit"
