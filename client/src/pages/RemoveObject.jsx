@@ -58,7 +58,7 @@ const RemoveObject = () => {
       <div className="flex-1 flex-cols max-h-[600px] bg-white p-6 rounded-lg shadow-md shadow-primary/10 min-w-0">
         {/* Processed images will be displayed here */}
         <div className="flex items-center gap-2 mb-4">
-          <Eraser className="w-6 h-6" />
+          <Eraser className="w-6 h-6 text-[#FF4938]" />
           <h2 className="text-xl font-semibold text-slate-700">
             Processed Images
           </h2>
