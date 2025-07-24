@@ -2,8 +2,22 @@ import React from "react";
 import { karanData } from "../assets/assets";
 
 const Testimonial = () => {
+  const openLinkedIn = () => {
+    window.open(
+      "https://www.linkedin.com/in/karanbhaskarr/",
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
+
   return (
-    <div className="my-20 max-w-lg w-full mx-auto px-4 sm:px-6 bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-xl hover:scale-105 hover:-translate-y-2 transition-all duration-300 cursor-pointer">
+    <div
+      onClick={openLinkedIn}
+      onKeyDown={(e) => e.key === "Enter" && openLinkedIn()}
+      role="button"
+      tabIndex={0}
+      className="my-20 max-w-lg w-full mx-auto px-4 sm:px-6 bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-xl hover:scale-105 hover:-translate-y-2 transition-all duration-300 cursor-pointer"
+    >
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center space-x-3">

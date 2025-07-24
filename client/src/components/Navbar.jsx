@@ -9,7 +9,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className="fixed z-15 w-full backdrop-blur-2xl flex justify-between items-center 
+      className="fixed z-30 w-full backdrop-blur-2xl flex justify-between items-center 
     px-4 py-4 sm:px-20 xl:px-32 text-xl border-b-db border-b-2 bg-primary"
     >
       <h1 className="text-yellow font-headline hover:underline text-4xl">
