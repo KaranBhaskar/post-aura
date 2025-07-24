@@ -12,14 +12,14 @@ const AiTools = () => {
       <div className="text-center ">
         <h2
           className="bg-bl text-white text-4xl font-bold tracking-widest py-3 rounded-3xl 
-          shadow-xl shadow-slate-900/50"
+          shadow-xl shadow-slate-900/50 max-sm:text-2xl"
         >
           Powerful AI Tools
         </h2>
         <p
           className="my-7 text-white text-xl px-30 font-extralight
             underline leading-10 decoration-sb decoration-2 underline-offset-5
-            "
+            max-sm:text-s max-sm:px-5 mx-sm:leading-2"
         >
           Everything you need to create, enhance, and optimize your content with
           the latest AI models, fine tuned for your needs.
