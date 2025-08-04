@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 import { clerkMiddleware, requireAuth } from "@clerk/express";
 import { aiRouter } from "./routes/aiRoutes.js";
 
@@ -14,7 +13,7 @@ app.get("/health", (req, res) => {
 
 //Checking if the user is logged in for all routes below
 app.use(requireAuth());
-app.use("/", aiRouter);
+app.use("/ai", aiRouter);
 
 export { app };
 export default app;
