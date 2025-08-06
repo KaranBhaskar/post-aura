@@ -17,4 +17,3 @@ app.use("/ai", aiRouter);
 
 export { app };
 export default app;
-

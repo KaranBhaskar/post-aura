@@ -1,18 +1,18 @@
 import { db } from "../db/connect.js";
-import { clerkClient } from "@clerk/express";
 import { Tables } from "../db/schema.ts";
 import { GoogleGenAI } from "@google/genai";
 import { uploadBufferImage } from "../utils/uploadImage.js";
 
-export const removeBackground = async (req, res) => {
+export const objectRemover = async (req, res) => {
   try {
     const { userId } = req.auth();
     const image = req.file.buffer;
+    const objectsToRemove = req.body.objects;
     const plan = req.plan;
     if (plan !== "agent_investor") {
       return res.status(403).json({
         message:
-          "Background removal is only available for Agent Investor plan users.",
+          "Object removal is only available for Agent Investor plan users.",
       });
     }
 
@@ -20,7 +20,7 @@ export const removeBackground = async (req, res) => {
 
     const prompt = [
       {
-        text: "Remove the background from the following image, and do not include any other elements.",
+        text: `Remove the following objects from the image: ${objectsToRemove}. Do not include any other elements.`,
       },
       {
         inlineData: {
@@ -41,23 +41,21 @@ export const removeBackground = async (req, res) => {
       } else if (part.inlineData) {
         const imageData = part.inlineData.data;
         const buffer = Buffer.from(imageData, "base64");
-        uploadResult = await uploadBufferImage(buffer, "background-removal");
+        uploadResult = await uploadBufferImage(buffer, "object-removal");
       }
     }
     const result = await db
       .insert(Tables)
       .values({
         user_id: userId,
-        prompt: "Background removal",
+        prompt: `Object removal: ${objectsToRemove}`,
         content: uploadResult.public_id,
-        type: "background-removal",
+        type: "object-removal",
       })
       .returning();
     res.status(200).json({ image: uploadResult.url });
   } catch (error) {
-    console.error("Error removing background:", error);
-    res
-      .status(500)
-      .json({ message: "Internal server error @ removeBackground" });
+    console.error("Error removing objects:", error);
+    res.status(500).json({ message: "Internal server error @ objectRemover" });
   }
 };
