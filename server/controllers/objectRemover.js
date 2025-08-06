@@ -11,8 +11,7 @@ export const objectRemover = async (req, res) => {
     const plan = req.plan;
     if (plan !== "agent_investor") {
       return res.status(403).json({
-        message:
-          "Object removal is only available for Agent Investor plan users.",
+        message: "Object removal is only available for Agent Investors.",
       });
     }
 
