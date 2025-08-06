@@ -2,7 +2,7 @@ import { clerkClient } from "@clerk/express";
 import { db } from "../db/connect.js";
 import { Tables } from "../db/schema.ts";
 import { GoogleGenAI } from "@google/genai";
-import * as fs from "node:fs";
+import { uploadBufferImage } from "../utils/uploadImage.js";
 
 export const generateImage = async (req, res) => {
   try {
@@ -20,15 +20,14 @@ export const generateImage = async (req, res) => {
       contents: `Create an image based on the following description: ${prompt} in the style of ${style}.`,
     });
 
-    let buffer;
+    let uploadResult;
     for (const part of response.candidates[0].content.parts) {
       if (part.text) {
         console.log(part.text);
       } else if (part.inlineData) {
         const imageData = part.inlineData.data;
-        buffer = Buffer.from(imageData, "base64");
-        // fs.writeFileSync("photosynthesis.png", buffer);
-        // console.log("Image saved as photosynthesis.png");
+        const buffer = Buffer.from(imageData, "base64");
+        uploadResult = await uploadBufferImage(buffer);
       }
     }
 
@@ -37,8 +36,8 @@ export const generateImage = async (req, res) => {
       .values({
         user_id: userId,
         prompt: prompt,
-        content: buffer,
-        type: "image",
+        content: uploadResult.public_id,
+        type: "image-generation",
         public: is_public,
       })
       .returning();
@@ -48,7 +47,7 @@ export const generateImage = async (req, res) => {
         privateMetadata: { free_usage: free_usage + 1 },
       });
     }
-    res.status(200).json({ image: buffer });
+    res.status(200).json({ image: uploadResult.url });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error @ generateImage" });

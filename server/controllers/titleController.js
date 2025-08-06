@@ -31,7 +31,7 @@ export const generateTitle = async (req, res) => {
         user_id: userId,
         prompt: topic,
         content: title,
-        type: "title",
+        type: "title-generation",
       })
       .returning();
 

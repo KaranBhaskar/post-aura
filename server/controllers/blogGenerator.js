@@ -35,7 +35,7 @@ export const generateArticle = async (req, res) => {
         user_id: userId,
         prompt: topic,
         content: answer,
-        type: "article",
+        type: "article-generation",
       })
       .returning();
     // If user is on free plan, increment their free usage count
