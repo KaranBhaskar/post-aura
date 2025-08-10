@@ -10,6 +10,7 @@ import { resumeHelper } from "../controllers/resumeHelperController.js";
 import {
   userDashboard,
   userCommunityDashboard,
+  updateLike,
 } from "../controllers/userDashboardController.js";
 
 const aiRouter = express.Router();
@@ -28,5 +29,6 @@ aiRouter.post("/resume-helper", auth, upload.single("resume"), resumeHelper);
 aiRouter.get("/", auth, userDashboard);
 aiRouter.get("/", auth, userDashboard);
 aiRouter.get("/community", auth, userCommunityDashboard);
+aiRouter.post("/community", auth, updateLike);
 
 export { aiRouter };

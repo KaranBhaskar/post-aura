@@ -1,20 +1,58 @@
 import React, { useEffect } from "react";
-import { useUser } from "@clerk/clerk-react";
+import { useUser, useAuth } from "@clerk/clerk-react";
 import { dummyPublishedCreationData } from "../assets/assets";
 import { Heart, Users } from "lucide-react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
 const Community = () => {
   const { user } = useUser();
   const [creations, setCreations] = React.useState([]);
   const [hidden, setHidden] = React.useState("none");
+  const { getToken } = useAuth();
   const fetchCreations = async () => {
-    setCreations([
-      ...dummyPublishedCreationData,
-    ]);
+    const axiosPromise = axios.get("/ai/community", {
+      headers: {
+        Authorization: `Bearer ${await getToken()}`,
+      },
+    });
+
+    toast.promise(axiosPromise, {
+      loading: "Fetching community creations...",
+      success: "Community creations fetched! 🎉",
+      error: "Failed to fetch community creations. 😬",
+    });
+    try {
+      const { data } = await axiosPromise;
+      setCreations(data.data);
+    } catch (err) {
+      console.error("Error fetching community creations @ Community:", err);
+    }
   };
   useEffect(() => {
     fetchCreations();
-  }, [user]);
+  }, []);
+
+  // Send like/unlike request to server
+  const sendLikeRequest = async (creation) => {
+    try {
+      const token = await getToken();
+      await axios.post(
+        `/ai/community/`,
+        { creation },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error("Error sending like request:", error);
+    }
+  };
+
   return (
     <div className="min-h-[calc(100vh-8rem)] max-h-fit overflow-y-scroll m-6 bg-white p-6 rounded-lg shadow-md">
       <div className="flex justify-center items-center mb-6 text-primary gap-2">
@@ -58,6 +96,7 @@ const Community = () => {
                   }
                   return item;
                 });
+                sendLikeRequest(newcreations[index]);   
                 setCreations(newcreations);
               }}
               className="absolute bottom-2 right-2 flex items-center bg-white/70 rounded-full px-2 py-1"

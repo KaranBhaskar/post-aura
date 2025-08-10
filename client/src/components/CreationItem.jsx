@@ -27,7 +27,9 @@ const CreationItem = ({ creation }) => {
         </button>
       </div>
       {expanded &&
-        (creation.type === "image-generation" ? (
+        (creation.type.split("-")[0] === "image" ||
+        creation.type.split("-")[0] === "object" ||
+        creation.type.split("-")[0] === "background" ? (
           <img
             src={creation.content}
             alt={creation.prompt}

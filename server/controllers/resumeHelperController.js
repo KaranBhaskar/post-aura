@@ -6,7 +6,7 @@ export const resumeHelper = async (req, res) => {
   try {
     const { userId } = req.auth();
     const plan = req.plan;
-    if (plan !== "agent_investor") {
+    if (plan !== "angel_investor") {
       return res.status(403).json({
         message: "Resume assistance is only available for Agent Investors.",
       });
@@ -19,7 +19,7 @@ export const resumeHelper = async (req, res) => {
       {
         text:
           `Provide detailed feedback and improvement suggestions for the following resume. Focus on structure, content, and overall presentation. Do not make any changes to the formatting or layout.` +
-          ` With emphasis on ${resumeAdvice} in Markdown format.` ,
+          ` With emphasis on ${resumeAdvice} in Markdown format.`,
       },
       {
         inlineData: {
@@ -29,11 +29,11 @@ export const resumeHelper = async (req, res) => {
       },
     ];
     const response = await ai.models.generateContent({
-      model: "gemini-3-pro-preview",
+      model: "gemini-3-flash-preview",
       contents: prompt,
       config: {
         thinkingConfig: {
-          thinkingLevel: "mid",
+          thinkingLevel: "low",
         },
       },
     });

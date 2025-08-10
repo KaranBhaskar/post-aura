@@ -55,6 +55,7 @@ const ResumeHelper = () => {
           </p>
           <input
             type="file"
+            aria-labelledby="Upload your resume"
             name="resume_upload"
             accept=".pdf,.doc,.docx"
             required
@@ -65,12 +66,13 @@ const ResumeHelper = () => {
           </p>
         </div>
         <div className="flex flex-col gap-2">
-          <p className=" text-l font-semibold tracking-wide text-slate-700">
+          <p className=" text-sm font-semibold tracking-wide text-slate-700">
             What would you like help with?
           </p>
           <textarea
             name="resume_help"
             id="resume_help"
+            aria-labelledby="Add details you want for resume help"
             required
             placeholder="E.g., Improve wording for my work experience section"
             rows={4}
@@ -90,7 +92,7 @@ const ResumeHelper = () => {
       </form>
 
       {/* right side  */}
-      <div className="flex-1 flex-cols max-h-[600px] bg-white p-6 rounded-lg shadow-md shadow-primary/10 min-w-0">
+      <div className="flex-1 flex-cols max-h-content min-h-[600px] bg-white p-6 rounded-lg shadow-md shadow-primary/10 min-w-0 overflow-y-auto">
         {/* Processed resumes will be displayed here */}
         <div className="flex items-center gap-2 mb-4">
           <Pencil className="w-6 h-6 text-primary" />
