@@ -11,7 +11,12 @@ export const generateImage = async (req, res) => {
     const plan = req.plan;
     const free_usage = req.free_usage;
 
-    console.log("Hello");
+    if (plan !== "angel_investor" && free_usage >= 2) {
+      return res.status(403).json({
+        message:
+          "Image generation is not allowed for your current plan. Please upgrade your plan.",
+      });
+    }
 
     const ai = new GoogleGenAI({});
 
@@ -42,11 +47,6 @@ export const generateImage = async (req, res) => {
       })
       .returning();
 
-    if (plan !== "agent_investor") {
-      await clerkClient.users.updateUserMetadata(userId, {
-        privateMetadata: { free_usage: free_usage + 1 },
-      });
-    }
     res.status(200).json({ image: uploadResult.url });
   } catch (error) {
     console.error(error);

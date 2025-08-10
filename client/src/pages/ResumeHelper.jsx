@@ -1,9 +1,43 @@
 import React from "react";
 import { Sparkles, File, Pencil } from "lucide-react";
+import axios from "axios";
+import { useAuth } from "@clerk/clerk-react";
+import { toast } from "react-hot-toast";
+import Markdown from "react-markdown";
+
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+
 const ResumeHelper = () => {
-  const handleSubmit = (e) => {
+  const { getToken } = useAuth();
+  const [content, setContent] = React.useState("");
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission logic here
+    const formData = new FormData();
+    formData.append("resume", e.target.resume_upload.files[0]);
+    formData.append("resumeAdvice", e.target.resume_help.value);
+
+    const axiosPromise = axios.post("/ai/resume-helper", formData, {
+      headers: {
+        Authorization: `Bearer ${await getToken()}`,
+      },
+    });
+    toast.promise(axiosPromise, {
+      loading: "Generating resume feedback...",
+      success: "Resume feedback generated successfully! 🎉",
+      error: "Failed to generate resume feedback. 😬",
+    });
+
+    try {
+      const { data } = await axiosPromise;
+      setContent(data.feedback);
+    } catch (err) {
+      console.error(
+        "Error generating resume feedback @ ResumeHelper:",
+        err.response.data.message
+      );
+    }
   };
   return (
     <div className="flex h-full p-6 gap-6 lg:flex-row flex-col w-full overflow-y-auto">
@@ -64,15 +98,21 @@ const ResumeHelper = () => {
             Pointers for your Resumes
           </h2>
         </div>
-
-        <div className="flex justify-center items-center h-full">
-          <div className="text-sm flex flex-col items-center text-center gap-5 text-gray-400">
-            <Pencil className="w-9 h-9" />
-            <p>
-              Upload your resume and describe the help you need to get started.
-            </p>
+        {content ? (
+          <div className="whitespace-pre-wrap mt-4 text-slate-700">
+            <Markdown>{content}</Markdown>
           </div>
-        </div>
+        ) : (
+          <div className="flex justify-center items-center h-full">
+            <div className="text-sm flex flex-col items-center text-center gap-5 text-gray-400">
+              <Pencil className="w-9 h-9" />
+              <p>
+                Upload your resume and describe the help you need to get
+                started.
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ export const resumeHelper = async (req, res) => {
       {
         text:
           `Provide detailed feedback and improvement suggestions for the following resume. Focus on structure, content, and overall presentation. Do not make any changes to the formatting or layout.` +
-          ` With emphasis on ${resumeAdvice}`,
+          ` With emphasis on ${resumeAdvice} in Markdown format.` ,
       },
       {
         inlineData: {

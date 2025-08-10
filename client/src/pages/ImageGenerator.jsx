@@ -1,7 +1,11 @@
 import React from "react";
 import { Camera, Image } from "lucide-react";
 import ToggleSwitch from "../components/ToggleSwitch";
+import axios from "axios";
+import { useAuth } from "@clerk/clerk-react";
+import { toast } from "react-hot-toast";
 
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 const style = [
   "Realistic",
   "Cartoon",
@@ -15,11 +19,51 @@ const style = [
 
 const ImageGenerator = () => {
   const [selectedStyle, setSelectedStyle] = React.useState(style[0]);
-  const handleSubmit = (e) => {
+  const { getToken } = useAuth();
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission logic here
+    const axiosPromise = axios.post(
+      "/ai/image-generator",
+      {
+        prompt: e.target.image_prompt.value,
+        style: selectedStyle,
+        is_public: share,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      }
+    );
+
+    toast.promise(
+      axiosPromise,
+      {
+        loading: "Generating image...🕰️",
+        success: "Image generated successfully!🎉",
+        error: "Failed to generate image.😬",
+      },
+      {
+        style: {
+          minWidth: "250px",
+        },
+      }
+    );
+
+    try {
+      const { data } = await axiosPromise;
+      // Handle the generated image data
+      setGeneratedImages(data.image);
+    } catch (err) {
+      console.error(
+        "Error generating image @ ImageGenerator:",
+        err.response.data.message
+      );
+    }
   };
   const [share, setShare] = React.useState(false);
+  const [generatedImages, setGeneratedImages] = React.useState("");
   return (
     <div className="flex h-full p-6 gap-6 lg:flex-row flex-col w-full">
       {/* Left Side - Image Generator */}
@@ -82,13 +126,23 @@ const ImageGenerator = () => {
             Generated Images
           </h2>
         </div>
-        <div className="flex-1 flex justify-center items-center h-full">
-          {/* Generated images will be displayed here */}
-          <div className="text-sm flex flex-col items-center gap-5 text-gray-400">
-            <Image className="w-9 h-9" />
-            <p>Describe an image and click "Generate Image" to get started.</p>
+        {generatedImages ? (
+          <img
+            src={generatedImages}
+            alt="Generated Image"
+            className="w-full h-auto rounded-lg shadow-sm"
+          />
+        ) : (
+          <div className="flex-1 flex justify-center items-center h-full">
+            {/* Generated images will be displayed here */}
+            <div className="text-sm flex flex-col items-center gap-5 text-gray-400">
+              <Image className="w-9 h-9" />
+              <p>
+                Describe an image and click "Generate Image" to get started.
+              </p>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,11 @@
 import React from "react";
 import { Sparkles, Hash } from "lucide-react";
+import axios from "axios";
+import { useAuth } from "@clerk/clerk-react";
+import { toast } from "react-hot-toast";
+import Markdown from "react-markdown";
+
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
 const categories = [
   "Technology",
@@ -15,11 +21,45 @@ const categories = [
 ];
 
 const Titles = () => {
-  const handleSubmit = (e) => {
+  const { getToken } = useAuth();
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission logic here
-  };
+    const axiosPromise = axios.post(
+      "/ai/title-generator",
+      {
+        topic: e.target.title_prompt.value,
+        category: button,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      }
+    );
 
+    toast.promise(
+      axiosPromise,
+      {
+        loading: "Generating title...🕰️",
+        success: "Title generated successfully!🎉",
+        error: "Failed to generate title.😬",
+      },
+      {
+        style: {
+          minWidth: "250px",
+        },
+      }
+    );
+    try {
+      const { data } = await axiosPromise;
+      setContent(data.title);
+      // Handle the generated title (data.title)
+    } catch (err) {
+      console.error("Error generating title @ Titles:", err);
+    }
+  };
+  const [content, setContent] = React.useState("");
   const [button, setButton] = React.useState("Technology");
   return (
     <div className="flex p-6 gap-6 h-full lg:flex-row flex-col">
@@ -81,12 +121,18 @@ const Titles = () => {
           </h2>
         </div>
         {/* Generated titles will be displayed here */}
-        <div className="flex justify-center items-center h-full text-center">
-          <div className="flex flex-col justify-center items-center gap-4 text-slate-500">
-            <Hash className="w-8 h-8" />
-            <p>Enter Keywords and click "Generate Titles" to get started</p>
+        {content ? (
+          <div className="whitespace-pre-wrap mt-4 text-slate-700">
+            <Markdown>{content}</Markdown>
           </div>
-        </div>
+        ) : (
+          <div className="flex justify-center items-center h-full text-center">
+            <div className="flex flex-col justify-center items-center gap-4 text-slate-500">
+              <Hash className="w-8 h-8" />
+              <p>Enter Keywords and click "Generate Titles" to get started</p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ export const removeBackground = async (req, res) => {
     const { userId } = req.auth();
     const image = req.file.buffer;
     const plan = req.plan;
-    if (plan !== "agent_investor") {
+    if (plan !== "angel_investor") {
       return res.status(403).json({
         message:
           "Background removal is only available for Agent Investor plan users.",

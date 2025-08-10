@@ -1,10 +1,41 @@
 import React from "react";
 import { Sparkles, Eraser } from "lucide-react";
+import axios from "axios";
+import { useAuth } from "@clerk/clerk-react";
+import { toast } from "react-hot-toast";
+
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
 const RemoveObject = () => {
-  const handleSubmit = (e) => {
+  const { getToken } = useAuth();
+  const [content, setContent] = React.useState("");
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission logic here
+    const formData = new FormData();
+    formData.append("image", e.target.image_upload.files[0]);
+    formData.append("objects", e.target.remove_object.value);
+    const axiosPromise = axios.post("/ai/remove-object", formData, {
+      headers: {
+        Authorization: `Bearer ${await getToken()}`,
+      },
+    });
+
+    toast.promise(axiosPromise, {
+      loading: "Processing image...",
+      success: "Object removed successfully! 🎉",
+      error: "Failed to remove object. 😬",
+    });
+
+    try {
+      const { data } = await axiosPromise;
+      setContent(data.image);
+    } catch (err) {
+      console.error(
+        "Error removing object @ RemoveObject:",
+        err.response.data.message
+      );
+    }
   };
   return (
     <div className="flex w-full h-full p-4 gap-6 lg:flex-row flex-col overflow-y-auto">
@@ -63,13 +94,20 @@ const RemoveObject = () => {
             Processed Images
           </h2>
         </div>
-
-        <div className="flex justify-center items-center h-full">
-          <div className="text-sm flex flex-col items-center text-center gap-5 text-gray-400">
-            <Eraser className="w-9 h-9" />
-            <p>Upload an image and click "Remove Object" to get started.</p>
+        {content ? (
+          <img
+            src={content}
+            alt="Processed Image"
+            className="w-full h-auto rounded-lg shadow-sm"
+          />
+        ) : (
+          <div className="flex justify-center items-center h-full">
+            <div className="text-sm flex flex-col items-center text-center gap-5 text-gray-400">
+              <Eraser className="w-9 h-9" />
+              <p>Upload an image and click "Remove Object" to get started.</p>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

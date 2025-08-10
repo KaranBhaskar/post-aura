@@ -9,9 +9,9 @@ export const objectRemover = async (req, res) => {
     const image = req.file.buffer;
     const objectsToRemove = req.body.objects;
     const plan = req.plan;
-    if (plan !== "agent_investor") {
+    if (plan !== "angel_investor") {
       return res.status(403).json({
-        message: "Object removal is only available for Agent Investors.",
+        message: "Object removal is only available for angel investors .",
       });
     }
 

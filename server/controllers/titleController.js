@@ -14,7 +14,7 @@ export const generateTitle = async (req, res) => {
 
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
-      contents: `Generate a catchy and relevant title for an article on the topic: ${topic} in the category: ${category}, and only give one title as output.`,
+      contents: `Generate a catchy and relevant title for an article on the topic: ${topic} in the category: ${category}, and only give one title as output. return in markdown with heading 1`,
       config: {
         thinkingConfig: {
           thinkingLevel: "low",
@@ -41,7 +41,7 @@ export const generateTitle = async (req, res) => {
       });
     }
 
-    res.status(200).json({ title: title, id: result[0].id });
+    res.status(200).json({ title: title, message: "success" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
