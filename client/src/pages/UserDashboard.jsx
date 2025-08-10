@@ -1,14 +1,47 @@
 import React, { useEffect } from "react";
-import { dummyCreationData } from "../assets/assets";
 import { Sparkles, SquareDashedKanban } from "lucide-react";
 import { Protect } from "@clerk/clerk-react";
 import CreationItem from "../components/CreationItem.jsx";
+import { useAuth } from "@clerk/clerk-react";
+import axios from "axios";
+import toast from "react-hot-toast";
+
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
 const UserDashboard = () => {
   const [creations, setCreations] = React.useState([]);
+  const [plan, setPlan] = React.useState("free");
+  const { getToken } = useAuth();
 
   const getDashboardData = async () => {
-    setCreations(dummyCreationData);
+    // setCreations(dummyCreationData);
+    const axiosPromise = axios.get("/ai", {
+      headers: {
+        Authorization: `Bearer ${await getToken()}`,
+      },
+    });
+
+    toast.promise(
+      axiosPromise,
+      {
+        loading: "Fetching dashboard data...",
+        success: "Dashboard data fetched! 🎉",
+        error: "Failed to fetch dashboard data",
+      },
+      {
+        style: {
+          minWidth: "250px",
+        },
+      }
+    );
+
+    try {
+      const { data } = await axiosPromise;
+      setCreations(data.creations);
+      setPlan(data.plan);
+    } catch (err) {
+      console.error("Error fetching dashboard data:", err);
+    }
   };
 
   useEffect(() => {
@@ -34,7 +67,7 @@ const UserDashboard = () => {
             <h2 className="font-semibold text-xl">
               {
                 <Protect plan={"angel_investor"} fallback={"recruiter"}>
-                  Angel Investor
+                  {plan}
                 </Protect>
               }
             </h2>
@@ -49,7 +82,7 @@ const UserDashboard = () => {
           Recent Creations
         </p>
         {creations.map((creation) => (
-      <CreationItem key={creation.id} creation={creation} />
+          <CreationItem key={creation.id} creation={creation} />
         ))}
       </div>
     </div>

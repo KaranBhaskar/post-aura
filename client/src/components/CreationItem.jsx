@@ -5,6 +5,8 @@ import Markdown from "react-markdown";
 const CreationItem = ({ creation }) => {
   const [expanded, setExpanded] = React.useState(false);
   const navigate = useNavigate();
+  let type = creation.type.split("-")[0];
+  type = type.charAt(0).toUpperCase() + type.slice(1);
   return (
     <div
       onClick={() => setExpanded(!expanded)}
@@ -14,23 +16,22 @@ const CreationItem = ({ creation }) => {
         <div>
           <h2>{creation.prompt}</h2>
           <p className="text-sm text-slate-500">
-            {creation.type} -{" "}
-            {new Date(creation.created_at).toLocaleDateString()}
+            {type} - {new Date(creation.created_at).toLocaleDateString()}
           </p>
         </div>
         <button
           onClick={() => navigate(`/ai/${creation.type}-generator`)}
           className="bg-sb border border-primary text-white px-4 py-2 rounded-full cursor-pointer hover:bg-primary/80 transition"
         >
-          {creation.type}
+          {type}
         </button>
       </div>
       {expanded &&
-        (creation.type === "image" ? (
+        (creation.type === "image-generation" ? (
           <img
             src={creation.content}
             alt={creation.prompt}
-            className="mt-3 w-full max-w-md"
+            className="mt-3 w-full max-w-md mx-auto rounded-lg"
           />
         ) : (
           <div className="mt-4 p-4 bg-bsb rounded-lg ">

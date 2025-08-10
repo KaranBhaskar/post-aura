@@ -4,7 +4,7 @@ import { clerkClient } from "@clerk/express";
 export const auth = async (req, res, next) => {
   try {
     const { userId, has } = await req.auth();
-    const hasPremiumPlan = await has({ plan: "agent_investor" });
+    const hasPremiumPlan = await has({ plan: "angel_investor" });
 
     const userData = await clerkClient.users.getUser(userId);
     if (!hasPremiumPlan && userData.privateMetadata.free_usage) {
@@ -16,7 +16,7 @@ export const auth = async (req, res, next) => {
       req.free_usage = 0;
     }
 
-    req.plan = hasPremiumPlan ? "agent_investor" : "recruiter";
+    req.plan = hasPremiumPlan ? "angel_investor" : "recruiter";
     next();
   } catch (error) {
     console.error(error);
