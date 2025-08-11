@@ -2,6 +2,7 @@ import { db } from "../db/connect.js";
 import { Tables } from "../db/schema.ts";
 import { GoogleGenAI } from "@google/genai";
 import { clerkClient } from "@clerk/express";
+import "dotenv/config";
 
 export const generateTitle = async (req, res) => {
   try {
@@ -9,6 +10,14 @@ export const generateTitle = async (req, res) => {
     const { userId } = req.auth();
     const plan = req.plan;
     const free_usage = req.free_usage;
+    if (
+      plan !== "angel_investor" &&
+      free_usage >= parseInt(process.env.FREE_USER_QUOTA)
+    ) {
+      return res.status(403).json({
+        message: "You've used all the free usage quota. Please upgrade your plan.",
+      });
+    }
 
     const ai = new GoogleGenAI({});
 

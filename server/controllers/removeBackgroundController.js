@@ -3,16 +3,21 @@ import { clerkClient } from "@clerk/express";
 import { Tables } from "../db/schema.ts";
 import { GoogleGenAI } from "@google/genai";
 import { uploadBufferImage } from "../utils/uploadImage.js";
+import "dotenv/config";
 
 export const removeBackground = async (req, res) => {
   try {
     const { userId } = req.auth();
     const image = req.file.buffer;
     const plan = req.plan;
-    if (plan !== "angel_investor") {
+    const free_usage = req.free_usage;
+    if (
+      plan !== "angel_investor" &&
+      free_usage >= parseInt(process.env.FREE_USER_QUOTA)
+    ) {
       return res.status(403).json({
         message:
-          "Background removal is only available for Agent Investor plan users.",
+          "You've used all the free usage quota. Please upgrade your plan.",
       });
     }
 
@@ -53,6 +58,12 @@ export const removeBackground = async (req, res) => {
         type: "background-removal",
       })
       .returning();
+
+    if (plan !== "angel_investor") {
+      await clerkClient.users.updateUserMetadata(userId, {
+        privateMetadata: { free_usage: free_usage + 1 },
+      });
+    }
     res.status(200).json({ image: uploadResult.url });
   } catch (error) {
     console.error("Error removing background:", error);

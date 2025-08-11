@@ -3,6 +3,7 @@ import { db } from "../db/connect.js";
 import { Tables } from "../db/schema.ts";
 import { GoogleGenAI } from "@google/genai";
 import { uploadBufferImage } from "../utils/uploadImage.js";
+import "dotenv/config";
 
 export const generateImage = async (req, res) => {
   try {
@@ -11,10 +12,13 @@ export const generateImage = async (req, res) => {
     const plan = req.plan;
     const free_usage = req.free_usage;
 
-    if (plan !== "angel_investor" && free_usage >= 2) {
+    if (
+      plan !== "angel_investor" &&
+      free_usage >= parseInt(process.env.FREE_USER_QUOTA)
+    ) {
       return res.status(403).json({
         message:
-          "Image generation is not allowed for your current plan. Please upgrade your plan.",
+          "You've used all the free usage quota. Please upgrade your plan.",
       });
     }
 
@@ -46,6 +50,12 @@ export const generateImage = async (req, res) => {
         public: is_public,
       })
       .returning();
+
+    if (plan !== "angel_investor") {
+      await clerkClient.users.updateUserMetadata(userId, {
+        privateMetadata: { free_usage: free_usage + 1 },
+      });
+    }
 
     res.status(200).json({ image: uploadResult.url });
   } catch (error) {

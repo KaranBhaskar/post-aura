@@ -2,7 +2,7 @@ import { GoogleGenAI } from "@google/genai";
 import { db } from "../db/connect.js";
 import { clerkClient } from "@clerk/express";
 import { Tables } from "../db/schema.ts";
-
+import "dotenv/config";
 // The client gets the API key from the environment variable `GEMINI_API_KEY`.
 const ai = new GoogleGenAI({});
 
@@ -11,11 +11,15 @@ export const generateArticle = async (req, res) => {
     const { userId } = req.auth();
     const { prompt: topic, length } = req.body;
     const plan = req.plan;
-    const free_usage = req.free_usage; 
+    const free_usage = req.free_usage;
     // Check if user has enough free usage
-    if (plan !== "angel_investor" && free_usage >= 10) {
+    if (
+      plan !== "angel_investor" &&
+      free_usage >= parseInt(process.env.FREE_USER_QUOTA)
+    ) {
       return res.status(403).json({
-        message: "Insufficient free usage. Please upgrade your plan.",
+        message:
+          "You've used all the free usage quota. Please upgrade your plan.",
       });
     }
     console.log("Generating article with topic:", topic, "and length:", length);
@@ -40,7 +44,7 @@ export const generateArticle = async (req, res) => {
       })
       .returning();
     // If user is on free plan, increment their free usage count
-    if (plan !== "angel") {
+    if (plan !== "angel_investor") {
       await clerkClient.users.updateUserMetadata(userId, {
         privateMetadata: { free_usage: free_usage + 1 },
       });
