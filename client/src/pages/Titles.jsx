@@ -52,15 +52,19 @@ const Titles = () => {
       }
     );
     try {
+      setLoading(true);
       const { data } = await axiosPromise;
       setContent(data.title);
       // Handle the generated title (data.title)
     } catch (err) {
       console.error("Error generating title @ Titles:", err);
+    } finally {
+      setLoading(false);
     }
   };
   const [content, setContent] = React.useState("");
   const [button, setButton] = React.useState("Technology");
+  const [loading, setLoading] = React.useState(false);
   return (
     <div className="flex p-6 gap-6 h-full lg:flex-row flex-col">
       {/* Left Side - Title Generator */}
@@ -78,9 +82,10 @@ const Titles = () => {
         <input
           type="text"
           name="title_prompt"
+          disabled={loading}
           required
           placeholder="The future of artificial intelligence"
-          className="border border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          className="border border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
         />
         <p className=" text-l font-semibold tracking-wide text-slate-700">
           Category
@@ -90,9 +95,13 @@ const Titles = () => {
           {categories.map((category) => (
             <span
               key={category}
-              onClick={() => setButton(category)}
-              className={`cursor-pointer px-3 py-1 rounded-full
-                hover:bg-yellow-500 hover:text-white transition
+              onClick={() => !loading && setButton(category)}
+              className={`px-3 py-1 rounded-full transition
+                ${
+                  loading
+                    ? "cursor-not-allowed opacity-50"
+                    : "cursor-pointer hover:bg-yellow-500 hover:text-white"
+                }
                 ${
                   button === category
                     ? "bg-primary text-white"
@@ -105,7 +114,8 @@ const Titles = () => {
         </div>
         <button
           type="submit"
-          className="mt-4 bg-primary cursor-pointer text-white font-semibold py-3 rounded-lg hover:bg-yellow/70 transition duration-300 ease-in-out "
+          disabled={loading}
+          className="mt-4 bg-primary cursor-pointer text-white font-semibold py-3 rounded-lg hover:bg-yellow/70 transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <Hash className="inline w-5 h-5 mr-2" />
           Generate Titles

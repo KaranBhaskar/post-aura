@@ -10,9 +10,11 @@ axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 const ResumeHelper = () => {
   const { getToken } = useAuth();
   const [content, setContent] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     // Handle form submission logic here
     const formData = new FormData();
     formData.append("resume", e.target.resume_upload.files[0]);
@@ -37,6 +39,8 @@ const ResumeHelper = () => {
         "Error generating resume feedback @ ResumeHelper:",
         err.response.data.message
       );
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -59,7 +63,8 @@ const ResumeHelper = () => {
             name="resume_upload"
             accept=".pdf,.doc,.docx"
             required
-            className="border border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            disabled={loading}
+            className="border border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
           />
           <p className="text-gray-500 text-sm">
             Supports PDF, DOC, and DOCX formats
@@ -74,9 +79,10 @@ const ResumeHelper = () => {
             id="resume_help"
             aria-labelledby="Add details you want for resume help"
             required
+            disabled={loading}
             placeholder="E.g., Improve wording for my work experience section"
             rows={4}
-            className="border resize-none border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="border resize-none border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
           ></textarea>
           <p className="text-gray-500 text-sm">
             Be as specific as possible for best results.
@@ -84,7 +90,8 @@ const ResumeHelper = () => {
         </div>
         <button
           type="submit"
-          className="mt-4 bg-primary cursor-pointer text-white font-semibold py-3 rounded-lg hover:bg-yellow/70 transition duration-300 ease-in-out "
+          disabled={loading}
+          className="mt-4 bg-primary cursor-pointer text-white font-semibold py-3 rounded-lg hover:bg-yellow/70 transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <File className="inline w-5 h-5 mr-2" />
           Get Resume Help

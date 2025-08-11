@@ -19,9 +19,11 @@ const style = [
 
 const ImageGenerator = () => {
   const [selectedStyle, setSelectedStyle] = React.useState(style[0]);
+  const [loading, setLoading] = React.useState(false);
   const { getToken } = useAuth();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     // Handle form submission logic here
     const axiosPromise = axios.post(
       "/ai/image-generator",
@@ -60,6 +62,8 @@ const ImageGenerator = () => {
         "Error generating image @ ImageGenerator:",
         err.response.data.message
       );
+    } finally {
+      setLoading(false);
     }
   };
   const [share, setShare] = React.useState(false);
@@ -81,9 +85,10 @@ const ImageGenerator = () => {
         <textarea
           name="image_prompt"
           required
+          disabled={loading}
           placeholder="Describe the image you want to generate"
           rows={4}
-          className="border resize-none border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          className="border resize-none border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
         ></textarea>
         <p className=" text-l font-semibold tracking-wide text-slate-700">
           Style
@@ -92,9 +97,13 @@ const ImageGenerator = () => {
           {style.map((styleOption) => (
             <span
               key={styleOption}
-              onClick={() => setSelectedStyle(styleOption)}
-              className={`cursor-pointer px-3 py-1 rounded-full
-                hover:bg-yellow-500 hover:text-white transition
+              onClick={() => !loading && setSelectedStyle(styleOption)}
+              className={`px-3 py-1 rounded-full transition
+                ${
+                  loading
+                    ? "cursor-not-allowed opacity-50"
+                    : "cursor-pointer hover:bg-yellow-500 hover:text-white"
+                }
                 ${
                   selectedStyle === styleOption
                     ? "bg-primary text-white"
@@ -106,12 +115,16 @@ const ImageGenerator = () => {
           ))}
         </div>
         <div className="flex gap-4 mt-4 items-center">
-          <ToggleSwitch isOn={share} handleToggle={() => setShare(!share)} />
+          <ToggleSwitch
+            isOn={share}
+            handleToggle={() => !loading && setShare(!share)}
+          />
           <p className="text-sm">Make this image Public</p>
         </div>
         <button
           type="submit"
-          className="mt-4 bg-primary cursor-pointer text-white font-semibold py-3 rounded-lg hover:bg-yellow/70 transition duration-300 ease-in-out "
+          disabled={loading}
+          className="mt-4 bg-primary cursor-pointer text-white font-semibold py-3 rounded-lg hover:bg-yellow/70 transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <Camera className="inline w-5 h-5 mr-2" />
           Generate Image

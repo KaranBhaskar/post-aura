@@ -54,7 +54,6 @@ const ArticleGenerator = () => {
   const { getToken } = useAuth();
   return (
     <div className="flex p-6 gap-6 overflow-y-scroll lg:flex-row flex-col">
-      toast
       {/* Left column */}
       <form
         onSubmit={onSubmitHandler}
@@ -69,10 +68,11 @@ const ArticleGenerator = () => {
         </p>
         <input
           type="text"
+          disabled={loading}
           name="article_prompt"
           required
           placeholder="The future of artificial intelligence"
-          className="border border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          className="border border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
         />
         <p className=" text-l font-semibold tracking-wide text-slate-700">
           Article Length
@@ -80,7 +80,8 @@ const ArticleGenerator = () => {
         <div>
           <select
             name="article_length"
-            className="w-full border border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            disabled={loading}
+            className="w-full border border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
             defaultValue="300-500"
           >
             <option value="300-500">Short (300-500 words)</option>
@@ -90,7 +91,8 @@ const ArticleGenerator = () => {
         </div>
         <button
           type="submit"
-          className="mt-4 bg-primary cursor-pointer text-white font-semibold py-3 rounded-lg hover:bg-yellow/70 transition duration-300 ease-in-out "
+          className="mt-4 bg-primary cursor-pointer text-white font-semibold py-3 rounded-lg hover:bg-yellow/70 transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={loading}
         >
           <Pencil className="inline w-5 h-5 mr-2" />
           Generate Article

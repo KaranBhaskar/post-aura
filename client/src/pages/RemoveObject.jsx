@@ -9,8 +9,10 @@ axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 const RemoveObject = () => {
   const { getToken } = useAuth();
   const [content, setContent] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     // Handle form submission logic here
     const formData = new FormData();
     formData.append("image", e.target.image_upload.files[0]);
@@ -35,6 +37,8 @@ const RemoveObject = () => {
         "Error removing object @ RemoveObject:",
         err.response.data.message
       );
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -56,7 +60,8 @@ const RemoveObject = () => {
             name="image_upload"
             accept="image/*"
             required
-            className="border border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            disabled={loading}
+            className="border border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
           />
           <p className="text-gray-500 text-sm">
             Supports PNG, JPG, and JPEG formats
@@ -70,9 +75,10 @@ const RemoveObject = () => {
             name="remove_object"
             id="remove_object"
             required
+            disabled={loading}
             placeholder="E.g., Remove the person on the left side of the image"
             rows={4}
-            className="border resize-none border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="border resize-none border-primary/30 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
           ></textarea>
           <p className="text-gray-500 text-sm">
             Be as specific as possible for best results.
@@ -80,7 +86,8 @@ const RemoveObject = () => {
         </div>
         <button
           type="submit"
-          className="mt-4 bg-gradient-to-r from-[#F6AB41] to-[#FF4938] cursor-pointer text-white font-semibold py-3 rounded-lg hover:from-[#FF4938] hover:to-[#F6AB41]"
+          disabled={loading}
+          className="mt-4 bg-gradient-to-r from-[#F6AB41] to-[#FF4938] cursor-pointer text-white font-semibold py-3 rounded-lg hover:from-[#FF4938] hover:to-[#F6AB41] disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <Eraser className="inline w-5 h-5 mr-2" />
           Remove Object
