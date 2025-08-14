@@ -81,7 +81,7 @@ const Testimonial = () => {
           ⚡️ Meet Aura: An all-in-one suite for creators.
           <br />
           <br />
-          ✅ GPT-4o Article Writer
+          ✅ Google Gemini Article Writer
           <br />
           ✅ Viral Hook Generator
           <br />
