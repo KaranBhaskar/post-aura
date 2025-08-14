@@ -1,8 +1,6 @@
-# Aura - AI-Powered Content Creation Suite
+# Aura
 
-<div align="center">
-
-## **An all-in-one AI workspace for creators**
+**An all-in-one AI workspace for creators**
 
 ## 📖 Table of Contents
 
@@ -21,7 +19,6 @@
 ## Features
 
 Aura is a full-stack web application that provides:
-
 - **AI Content Generation**: Articles, titles, and images powered by Google Gemini AI
 - **Image Processing**: Background removal and object removal using advanced AI
 - **Resume Analysis**: AI-powered resume parsing and feedback
@@ -70,7 +67,7 @@ GitHub              - Code Repository
 
 ### Prerequisites
 
-- Node.js 23+ and npm
+- Node.js 23+ and npm 
 - PostgreSQL database ([Neon](https://neon.tech) , the one I used)
 - Clerk account for authentication
 - Google Gemini API key
@@ -190,7 +187,6 @@ All API endpoints (except `/health`) require a Clerk JWT token:
 
 ---
 
-<div align="center">
 
 **Built with ❤️ and ☕ by Karan Bhaskar**
 
