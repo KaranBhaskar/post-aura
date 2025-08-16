@@ -13,7 +13,7 @@ const Hero = () => {
       </span>
 
       <div className="flex-col justify-between z-10  w-3/4">
-        <div className="text-sb font-light text-2xl py-5 px-20 max-sm:text-sm max-sm:px-5">
+        <div className="text-sb font-light text-2xl py-5 px-20 max-sm:text-base max-sm:px-5">
           {" "}
           <span>
             50+ Viral Templates <br /> and 24/7 Support
@@ -21,7 +21,7 @@ const Hero = () => {
         </div>
         <h1
           className="text-4xl text-white tracking-wide
-     font-light underline leading-10 decoration-bl decoration-5 underline-offset-8 max-sm:text-lg max-sm:decoration-2 max-sm:leading-5"
+     font-light underline leading-10 decoration-bl decoration-5 underline-offset-8 max-sm:text-xl max-sm:decoration-2 max-sm:leading-5"
         >
           Don't just post, perform. leverage AI to craft stories that captivate
           your industry, and open doors to new opportunities.
