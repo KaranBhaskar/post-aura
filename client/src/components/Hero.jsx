@@ -9,7 +9,7 @@ const Hero = () => {
         className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
     select-none text-[22vw] font-black leading-none text-db opacity-30"
       >
-        AURO
+        AURA
       </span>
 
       <div className="flex-col justify-between z-10  w-3/4">
